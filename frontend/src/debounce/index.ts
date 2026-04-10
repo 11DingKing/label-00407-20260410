@@ -46,7 +46,7 @@ export interface DebouncedFunction<T extends (...args: any[]) => any> {
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
-  options: DebounceOptions = {}
+  options: DebounceOptions = {},
 ): DebouncedFunction<T> {
   const { wait = 300, leading = false, trailing = true, maxWait } = options;
 
@@ -68,7 +68,8 @@ export function debounce<T extends (...args: any[]) => any>(
   }
 
   function shouldInvoke(time: number): boolean {
-    const timeSinceLastCall = lastCallTime === undefined ? 0 : time - lastCallTime;
+    const timeSinceLastCall =
+      lastCallTime === undefined ? 0 : time - lastCallTime;
     const timeSinceLastInvoke = time - lastInvokeTime;
 
     return (
@@ -80,7 +81,8 @@ export function debounce<T extends (...args: any[]) => any>(
   }
 
   function remainingWait(time: number): number {
-    const timeSinceLastCall = lastCallTime === undefined ? 0 : time - lastCallTime;
+    const timeSinceLastCall =
+      lastCallTime === undefined ? 0 : time - lastCallTime;
     const timeSinceLastInvoke = time - lastInvokeTime;
     const timeWaiting = wait - timeSinceLastCall;
 
@@ -127,7 +129,10 @@ export function debounce<T extends (...args: any[]) => any>(
     if (timerId === null) {
       return;
     }
-    trailingEdge(Date.now());
+    const time = Date.now();
+    trailingEdge(time);
+    lastCallTime = undefined;
+    lastInvokeTime = 0;
   }
 
   function pending(): boolean {

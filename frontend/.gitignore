@@ -1,0 +1,7 @@
+node_modules
+dist
+docs-dist
+.dumi/tmp
+.dumi/tmp-production
+*.log
+.DS_Store
